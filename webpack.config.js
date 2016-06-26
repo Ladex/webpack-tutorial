@@ -28,10 +28,11 @@ var config;
 // Detect how npm is run and branch based on that
 switch (process.env.npm_lifecycle_event) {
     case 'build':
-        config = merge(common, parts.setupCSS(PATHS.app));
+        config = merge(common,{devtool:'source-map'}, parts.setupCSS(PATHS.app));
         break;
     default:
         config = merge(common,
+        	{devtool:'eval-source-map'},
         	parts.setupCSS(PATHS.app),
             parts.devServer({
                 host: process.env.HOST,
