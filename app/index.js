@@ -1,3 +1,4 @@
 var component = require('./component');
-var me = require('./main.css');
+require('./main.css');
+require('react');
 document.body.appendChild(component());
