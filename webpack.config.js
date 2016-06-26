@@ -12,6 +12,7 @@ var PATHS = {
 var common = {
     entry: {
         app: PATHS.app
+            // vendor:['react']
     },
     output: {
         path: PATHS.build,
@@ -31,7 +32,12 @@ switch (process.env.npm_lifecycle_event) {
         config = merge(common, { devtool: 'source-map' },
             parts.setFreeVariable('process.env.NODE_ENV', 'production'),
             parts.minify(),
-            parts.setupCSS(PATHS.app));
+            parts.setupCSS(PATHS.app),
+            parts.extractBundle({
+                name: 'vendor',
+                entries: ['react']
+            })
+        );
         break;
     default:
         config = merge(common, { devtool: 'eval-source-map' },

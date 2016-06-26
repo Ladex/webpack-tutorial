@@ -42,13 +42,27 @@ exports.minify = function() {
     };
 }
 
-exports.setFreeVariable = function(key,value){
+exports.setFreeVariable = function(key, value) {
     const env = {};
     env[key] = JSON.stringify(value);
 
     return {
-        plugins:[
+        plugins: [
             new webpack.DefinePlugin(env)
+        ]
+    }
+}
+
+exports.extractBundle = function(options) {
+    const entry = {};
+    entry[options.name] = options.entries;
+
+    return {
+        entry: entry,
+        plugins: [
+            new webpack.optimize.CommonsChunkPlugin({
+                names: [options.name, 'manifest']
+            })
         ]
     }
 }
