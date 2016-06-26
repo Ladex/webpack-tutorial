@@ -1,14 +1,15 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const merge = require('Webpack-merge');
-const validate = require('webpack-validator');
+var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var merge = require('Webpack-merge');
+var validate = require('webpack-validator');
+var parts = require('./libs/parts');
 
-const PATHS = {
+var PATHS = {
 	app:path.join(__dirname,'app'),
 	build: path.join(__dirname, 'build')
 };
 
-const common = {
+var common = {
 	entry:{
 		app:PATHS.app
 	},
@@ -23,14 +24,18 @@ const common = {
 	]
 };
 
-let config;
+var config;
 // Detect how npm is run and branch based on that
-switch(process.env.npm_lifecycle_event){
+switch(process.env.npm_lifecycle_event){ 
 	case 'build':
 		config = merge(common, {});
 		break;
 	default:
-		config = merge(common,{});
+		config = merge(common,
+			parts.devServer({
+			host:process.env.HOST,
+			port:process.env.PORT
+		}));
 }
 
-module.exports = config;
+module.exports = validate(config);
