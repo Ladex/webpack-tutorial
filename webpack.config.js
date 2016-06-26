@@ -36,7 +36,8 @@ switch (process.env.npm_lifecycle_event) {
             parts.extractBundle({
                 name: 'vendor',
                 entries: ['react']
-            })
+            }),
+            parts.clean(PATHS.build)
         );
         break;
     default:
