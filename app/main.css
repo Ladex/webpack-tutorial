@@ -1,7 +1,7 @@
 body {
-    background: lightgreen;
+    background: lightpink;
 }
 
 :local(.redButton){
-background: red;
+background: white;
 }
