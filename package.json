@@ -7,6 +7,7 @@
     "start": "webpack-dev-server",
     "build": "webpack",
     "watch": "webpack --watch",
+    "stats": "webpack --profile --json > stats.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
